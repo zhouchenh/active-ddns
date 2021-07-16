@@ -8,8 +8,8 @@ import (
 
 var (
 	name    = "active-ddns"
-	version = "0.0.1"
-	build   = "Beta "
+	version = "1.0.0"
+	build   = ""
 	intro   = "A simple DDNS tool"
 )
 
