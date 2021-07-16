@@ -139,5 +139,9 @@ func runClient() {
 }
 
 func onIPAddrUpdate(newIPAddr net.IP) {
-	shell.Script(strings.ReplaceAll(*script, *keyword, newIPAddr.String())).Run()
+	scriptString := strings.ReplaceAll(*script, *keyword, newIPAddr.String())
+	errorCode := shell.Script(scriptString).Run()
+	if errorCode != 0 {
+		logger.Warning().Int("errorCode", errorCode).Str("shell", shell.Shell+" {{script}}").Str("script", scriptString).Msg("Script exited with failure")
+	}
 }
