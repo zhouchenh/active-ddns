@@ -69,7 +69,7 @@ func main() {
 			flag.Usage()
 			os.Exit(2)
 		}
-		if *tlsServerName == "" {
+		if !*noTLS && *tlsServerName == "" {
 			host, _ := splitHostPort(*clientConnectAddr)
 			if host == "" || net.ParseIP(host) != nil {
 				_, _ = fmt.Fprintf(flag.CommandLine.Output(), "a valid server name should be specified with -servername\n")
