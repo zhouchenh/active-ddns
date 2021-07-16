@@ -12,6 +12,7 @@ var (
 	keyFilePath       = flag.String("key", "", "Specify the path to the private key file")
 	noTLS             = flag.Bool("notls", false, "Do not use TLS")
 	insecureTLS       = flag.Bool("insecuretls", false, "Allow insecure TLS")
+	tlsServerName     = flag.String("servername", "", "Specify the server name in the certificate presented by the server")
 	hbiValue          = flag.Int("hbi", 5000, "Specify the interval between heartbeats in milliseconds")
 	mhbValue          = flag.Int("mhb", 3, "Specify the number of missed heartbeats allowed before disconnection")
 	minRI             = flag.Int("minri", 1000, "Specify the minimal interval between reconnections in milliseconds")

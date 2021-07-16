@@ -69,6 +69,15 @@ func main() {
 			flag.Usage()
 			os.Exit(2)
 		}
+		if *tlsServerName == "" {
+			host, _ := splitHostPort(*clientConnectAddr)
+			if host == "" || net.ParseIP(host) != nil {
+				_, _ = fmt.Fprintf(flag.CommandLine.Output(), "a valid server name should be specified with -servername\n")
+				flag.Usage()
+				os.Exit(2)
+			}
+			*tlsServerName = host
+		}
 		runClient()
 	} else {
 		flag.Usage()
@@ -119,6 +128,7 @@ func runClient() {
 		ConnectAddr:             *clientConnectAddr,
 		NoTLS:                   *noTLS,
 		AllowInsecureTLS:        *insecureTLS,
+		ServerName:              *tlsServerName,
 		HeartbeatInterval:       time.Duration(*hbiValue) * time.Millisecond,
 		MissedHeartbeatsAllowed: *mhbValue,
 		RedialInterval:          &doublable.Duration{Min: time.Duration(*minRI) * time.Millisecond, Max: time.Duration(*maxRI) * time.Millisecond},

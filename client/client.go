@@ -16,6 +16,7 @@ type Client struct {
 	ConnectAddr             string
 	NoTLS                   bool
 	AllowInsecureTLS        bool
+	ServerName              string
 	HeartbeatInterval       time.Duration
 	MissedHeartbeatsAllowed int
 	idleTimeout             time.Duration
@@ -36,7 +37,7 @@ func (c *Client) Run() (err error) {
 			return net.Dial("tcp", c.ConnectAddr)
 		}
 	} else {
-		config := &tls.Config{InsecureSkipVerify: c.AllowInsecureTLS}
+		config := &tls.Config{ServerName: c.ServerName, InsecureSkipVerify: c.AllowInsecureTLS}
 		dial = func() (net.Conn, error) {
 			return tls.Dial("tcp", c.ConnectAddr, config)
 		}
